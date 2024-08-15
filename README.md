@@ -39,4 +39,4 @@ The Legal Document Analysis Tool is a web application designed for analyzing and
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/legal-document-analysis-tool.git
+   git clone https://github.com/Bilal7855/Legal-Document-Analysis-Tool.git
