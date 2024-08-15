@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <title>Legal Document Analysis</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+            transition: margin-right 0.3s ease, background 0.3s ease;
+        }
+
+        /* Add a class for background color change */
+        .body-background-change {
+            background: linear-gradient(135deg, #f2f2f2, #e0e0e0); /* New background color */
+            transition: background 0.3s ease;
+        }
+
+        /* Add a class for compressing the left side */
+        .body-compress-left {
+            margin-left: 400px; /* Adjust this value based on your needs */
+            transition: margin-left 0.3s ease;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 500px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        input[type="file"],
+        input[type="text"] {
+            width: calc(100% - 24px);
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f4f4f4;
+            transition: border 0.3s ease, background-color 0.3s ease;
+        }
+
+        input[type="file"]:focus,
+        input[type="text"]:focus {
+            border-color: #007bff;
+            background-color: #e6f0ff;
+            outline: none;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Popup Modal Styles */
+        #responseModal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            right: 0;
+            top: 20px;
+            width: 400px;
+            height: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        /* Update the modal position for the response */
+        .response-modal-left {
+            right: 0;
+            left: 0; /* Extend modal to the left */
+            width: 50%; /* Adjust width as needed */
+            margin: auto;
+        }
+
+        #responseContent {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            max-width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        #responseContent h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        #closeModal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.3s ease;
+        }
+
+        #closeModal:hover {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Legal Document Analysis Tool</h1>
+
+    <h2>Upload PDFs</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="pdfFiles" name="pdfFiles" multiple>
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>Ask a Question</h2>
+    <form id="queryForm">
+        <input type="text" id="question" name="question" placeholder="Enter your question">
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Popup Modal for Response -->
+    <div id="responseModal">
+        <div id="responseContent">
+            <span id="closeModal">&times;</span>
+            <h3>Response:</h3>
+            <p id="responseText"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
